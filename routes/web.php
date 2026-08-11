@@ -59,7 +59,56 @@ use App\Http\Controllers\UserController;
 // route ::get('/zaid', [UserController::class, 'asd']);
 // route ::get('/hareth', [UserController::class, 'age']);
 
-route::get('login', [UserController::class, 'get_login']);
+// route::get('login', [UserController::class, 'get_login']);
+  
+// route ::get ('zaid',function(){
+//     return view ('loginpage.login',['name' => 'wafa']);
+// });
+// route ::get ('zaid',function(){
+//     return view ('loginpage.login');
+// });
+
+// route ::get ('zaid',function(){
+//     return view ('loginpage.login',['record' => '1']);
+// });
+
+// route::get('main',function(){
+//     return view('master');
+// });
+
+// route::get('article',function(){
+//     return view('article');
+// });
+
+// route::get('hi',function(){
+//     return "welcome to zaid alshathly";
+// });
+
+// route::get('yourname/{name?}',function($name = 'zaid alshathly'){
+//     return "welcome to  " . $name;
+// });
+
+// route::get('signup',function(){
+// return view('signup',['name' => 'zaid alshathly']);
+// });
+
+// use App\Http\Controllers\signupController; 
+
+// route::get('signup',[signupController::class , 'get_signup']);
+
+
+// route::get('page1',function(){
+//     return view ('page1');
+// });
+
+// route::get('article',function(){
+//     return view ('article');
+// });
+
+route::get('hi',function(){
+    return env('APP_URL');
+    
+});
 
 route:: fallback(function(){
     

@@ -1,4 +1,4 @@
-<form action="action_page.php" method="post">
+{{-- <form action="action_page.php" method="post">
   <div class="imgcontainer">
     <img src="img_avatar2.png" alt="Avatar" class="avatar">
   </div>
@@ -20,4 +20,25 @@
     <button type="button" class="cancelbtn">Cancel</button>
     <span class="psw">Forgot <a href="#">password?</a></span>
   </div>
-</form>
+</form> --}}
+
+
+
+
+{{-- {{ $name }} 
+{{ time() }}  --}}
+
+
+{{-- @if (2 === 1)
+    I have one record!
+@elseif (2 > 1)
+    I have multiple records!
+@else
+    I don't have any records!
+@endif --}}
+
+
+
+@isset($record)
+  hahahahaha 
+@endisset
