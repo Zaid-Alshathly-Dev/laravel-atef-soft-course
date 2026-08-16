@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FlightsController;
 use Illuminate\Support\Facades\Route;
 
 /*Route::get('/', function () {
@@ -54,7 +55,7 @@ route :: get('/',function(){
 
 
 use App\Http\Controllers\UserController;
-
+use App\Models\Flight;
 
 // route ::get('/zaid', [UserController::class, 'asd']);
 // route ::get('/hareth', [UserController::class, 'age']);
@@ -105,10 +106,19 @@ use App\Http\Controllers\UserController;
 //     return view ('article');
 // });
 
-route::get('hi',function(){
-    return env('APP_URL');
+// route::get('hi',function(){
+//     return env('APP_URL');
     
-});
+// });
+
+// route::get('flights',function(){
+//     return Flight::all(); 
+    
+// });
+
+route::get('flights',[FlightsController::class,'index'])->name('flights');
+route::get('create_flights',[FlightsController::class,'create'])->name('create_flights');
+route::post('store_flight',[FlightsController::class,'store'])->name('store_flight');
 
 route:: fallback(function(){
     
