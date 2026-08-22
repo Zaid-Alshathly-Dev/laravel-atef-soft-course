@@ -119,6 +119,11 @@ use App\Models\Flight;
 route::get('flights',[FlightsController::class,'index'])->name('flights');
 route::get('create_flights',[FlightsController::class,'create'])->name('create_flights');
 route::post('store_flight',[FlightsController::class,'store'])->name('store_flight');
+route::get('edit_flights/{id}',[FlightsController::class,'edit'])->name('edit_flights');
+route::post('update_flights/{id}',[FlightsController::class,'update_flights'])->name('update_flights');
+route::get('delete_flights/{id}',[FlightsController::class,'delete'])->name('delete_flights');
+
+
 
 route:: fallback(function(){
     

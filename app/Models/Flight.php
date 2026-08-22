@@ -2,11 +2,20 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Database\Factories\CreateFlightsFactory;
 
 class Flight extends Model
 {
-    protected $table ='flights';
-    protected $fillable =['name','created_at'];
+    use HasFactory;
 
+    protected $table = 'flights';
+    protected $fillable = ['name', 'created_at'];
+
+    // أضف هذه الدالة هنا ليعرف لارفيل الفاكتوري المخصص
+    protected static function newFactory()
+    {
+        return CreateFlightsFactory::new();
+    }
 }
