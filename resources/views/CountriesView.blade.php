@@ -42,9 +42,9 @@ th {
 </head>
 <body>
 
-<h1 style="text-align: center">A Flights Table</h1>
+<h1 style="text-align: center">جدول بيانات الدول </h1>
 
-<a href="{{ route('create_flights') }}"  class="button"> اضافه جديده </a>
+<a href="{{ route('country.create') }}"  class="button"> اضافه جديده </a>
 
 <table dir="rtl" id='customers'>
   <tr>
@@ -60,17 +60,12 @@ th {
     <td style="text-align: center">{{ $info->name }}</td>
     <td style="text-align: center">{{ $info->created_at }}</td>
     <td> 
-      <a href="{{ route('edit_flights',$info->id) }}"  class="button"   style="padding: 10px" >تعديل</a>
-      @if ($info->deleted_at!=null)
-      <a href="{{ route('delete_flights',$info->id) }}"  class="button"  style="background-color: red ;   margin-right: 10px ; padding: 10px " >حذف نهائي</a>
-       @endif
-      @if ($info->deleted_at==null)
-      <a href="{{ route('delete_soft',$info->id) }}"  class="button"  style="background-color: rgb(234, 163, 42) ;   margin-right: 10px ; padding: 10px " >حذف للسلة</a>
-     @endif
-      @if ($info->deleted_at!=null)
-            <a href="{{ route('restore',$info->id) }}"  class="button"  style="background-color: rgb(129, 129, 92) ;   margin-right: 10px ; padding: 10px " >الغاء الحذف </a>
-
-    @endif
+      <a href="{{ route('country.edit',$info->id) }}"  class="button"   style="padding: 10px" >تعديل</a>
+      <form method='POST' action="{{ route('country.destroy',$info->id) }}">
+      @csrf
+        @method('DELETE')
+        <button  class="button"  style="background-color: red ;   margin-right: 10px ; padding: 10px " >حذف</button>
+      </form>
     </td>
   </tr>
 

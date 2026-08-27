@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('flights', function (Blueprint $table) {
-            $table->id();
-             $table->string('name',225);
-            $table->tinyInteger('active')->default(1)->comment('هل مفعل ام لا ');
-            $table->timestamps();
+        Schema::table('flights', function (Blueprint $table) {
+            $table->softDeletes();
         });
     }
 
@@ -24,6 +21,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('flights');
+        Schema::table('flights', function (Blueprint $table) {
+          $table->dropSoftDeletes();
+
+        });
     }
 };

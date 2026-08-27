@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('flights', function (Blueprint $table) {
+        Schema::create('_countries', function (Blueprint $table) {
             $table->id();
-             $table->string('name',225);
-            $table->tinyInteger('active')->default(1)->comment('هل مفعل ام لا ');
+            $table->string('name', 225);
+            $table->tinyInteger('active')->default(1)->comment('هل  الدوله مفعل ام معطل  ');
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('flights');
+        Schema::dropIfExists('_countries');
     }
 };

@@ -6,11 +6,19 @@ use Illuminate\Http\Request;
 use App\Models\Flight;
 // use Illuminate\Auth\Events\Validated;
 use App\Http\Requests\CreateFlightRequest;
+use Illuminate\Support\facades\DB;
 class FlightsController extends Controller
 {
     public function index()
     {
-        $data = Flight::paginate(2);
+        $data = Flight::all();
+        // $data = Flight::paginate(2);
+        // $data = Flight::where('id','>',1)->get();
+        //  $data = Flight::orderby('id','DESC')->get();
+         $data = Flight::withTrashed()->orderby('id','DESC')->get();
+        // $data = Flight::orderby('id','ASC')->get();
+        // $data=DB::table('flights')->get();
+        // $data=DB::table('flights')->orderBy('id','DESC')->get();
         return view('Flights', ['data' => $data]);
     }
     public function create()
@@ -41,12 +49,12 @@ class FlightsController extends Controller
         return redirect()->route('flights');
     }
 
-    public function edit ($id){
+    public function edit (String $id){
     $data =Flight::find($id);
     return view('edit_flights',['data'=>$data]) ;
     }
     
-    public function update_flights($id,Request $request){
+    public function update_flights(String $id,Request $request){
     $dataToUpdate =Flight::find($id);
     $dataToUpdate->name=$request->name;
     $dataToUpdate->save();
@@ -54,9 +62,26 @@ class FlightsController extends Controller
 
     }
 
-    public function delete($id){
+     public function delete($id)
+{
+    Flight::where('id', $id)->forceDelete();
+    return redirect()->route('flights');
+}
+
+
+    public function delete_soft( $id){
     $flight =Flight::find($id);
     $flight ->delete();
     return redirect()->route('flights');
     }
+
+
+    public function restore($id)
+{
+    Flight::where('id', $id)->restore();
+    return redirect()->route('flights');
 }
+
+   
+    }
+    

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CountiesController;
 use App\Http\Controllers\FlightsController;
 use Illuminate\Support\Facades\Route;
 
@@ -122,8 +123,10 @@ route::post('store_flight',[FlightsController::class,'store'])->name('store_flig
 route::get('edit_flights/{id}',[FlightsController::class,'edit'])->name('edit_flights');
 route::post('update_flights/{id}',[FlightsController::class,'update_flights'])->name('update_flights');
 route::get('delete_flights/{id}',[FlightsController::class,'delete'])->name('delete_flights');
+route::get('delete_soft/{id}',[FlightsController::class,'delete_soft'])->name('delete_soft');
+route::get('restore/{id}',[FlightsController::class,'restore'])->name('restore');
 
-
+Route::resource('country',CountiesController::class);
 
 route:: fallback(function(){
     
