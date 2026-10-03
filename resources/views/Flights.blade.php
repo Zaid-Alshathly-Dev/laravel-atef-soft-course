@@ -49,6 +49,7 @@ th {
 <table dir="rtl" id='customers'>
   <tr>
     <th style="text-align: center">الاسم </th>
+    <th style="text-align: center">الوجهة الثابتة</th>
     <th style="text-align: center">تاريخ الاضافه </th>
     <th style="text-align: center">تاريخ الاضافه </th>
     <th></th>
@@ -57,7 +58,20 @@ th {
   @if (@isset($data) and !@empty($data))
   @foreach ( $data as $info)
   <tr>
+    
     <td style="text-align: center">{{ $info->name }}</td>
+    
+    <td style="text-align: center">
+@if(!@empty($info->destinations))
+{{ $info->destinations->destination }}
+{{ $info->destinations->flight->name }}
+
+@endif
+
+
+
+    </td>
+
     <td style="text-align: center">{{ $info->created_at }}</td>
     <td> 
       <a href="{{ route('edit_flights',$info->id) }}"  class="button"   style="padding: 10px" >تعديل</a>

@@ -20,4 +20,16 @@ class Flight extends Model
     {
         return CreateFlightsFactory::new();
     }
+
+    public function scopeActive($query){
+
+    return $query->where('active',1);
+
+    }
+
+
+    public function destinations()
+    {
+        return $this->hasOne(flight_destination::class);
+    }
 }

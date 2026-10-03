@@ -127,6 +127,8 @@ route::get('delete_soft/{id}',[FlightsController::class,'delete_soft'])->name('d
 route::get('restore/{id}',[FlightsController::class,'restore'])->name('restore');
 
 Route::resource('country',CountiesController::class);
+// Route::resource('country',CountiesController::class)->except(['create']);
+// Route::resource('country',CountiesController::class)->only(['create']);
 
 route:: fallback(function(){
     
