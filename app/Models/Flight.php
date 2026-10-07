@@ -32,4 +32,10 @@ class Flight extends Model
     {
         return $this->hasOne(flight_destination::class);
     }
+
+
+    public function booking()
+    {
+        return $this->hasMany(flight_booking::class,'flight_id');
+    }
 }

@@ -51,7 +51,8 @@ th {
     <th style="text-align: center">الاسم </th>
     <th style="text-align: center">الوجهة الثابتة</th>
     <th style="text-align: center">تاريخ الاضافه </th>
-    <th style="text-align: center">تاريخ الاضافه </th>
+    <th style="text-align: center">ملاحظات  </th>
+    <th style="text-align: center"></th>
     <th></th>
 
   </tr>
@@ -60,13 +61,15 @@ th {
   <tr>
     
     <td style="text-align: center">{{ $info->name }}</td>
+    <td style="text-align: center">{{ $info->notes }}</td>
     
     <td style="text-align: center">
 @if(!@empty($info->destinations))
 {{ $info->destinations->destination }}
-{{ $info->destinations->flight->name }}
+{{-- {{ $info->destinations->flight->name }} --}}
 
 @endif
+
 
 
 

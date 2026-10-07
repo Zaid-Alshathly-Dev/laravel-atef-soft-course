@@ -3,16 +3,14 @@
 use App\Http\Controllers\CountiesController;
 use App\Http\Controllers\FlightsController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\homeController;
+use App\Http\Controllers\CourseController;
 /*Route::get('/', function () {
     return view('welcome');
 });*/
 
 
-route :: get('/',function(){
-    return view ('welcame');
-    // return ('الحمد لله ');
-});
+route :: get('/', [homeController::class,'index'])->name('home');
 
 // route::get ('/',function(){
 // return 'Zaid Alshathly';
@@ -125,6 +123,17 @@ route::post('update_flights/{id}',[FlightsController::class,'update_flights'])->
 route::get('delete_flights/{id}',[FlightsController::class,'delete'])->name('delete_flights');
 route::get('delete_soft/{id}',[FlightsController::class,'delete_soft'])->name('delete_soft');
 route::get('restore/{id}',[FlightsController::class,'restore'])->name('restore');
+
+
+// start courses routes
+route::get('courses',[CourseController::class,'index'])->name('courses.index');
+route::get('create_courses',[CourseController::class,'create'])->name('courses_create');
+route::post('store_courses',[CourseController::class,'store'])->name('courses_store');
+
+
+
+
+
 
 Route::resource('country',CountiesController::class);
 // Route::resource('country',CountiesController::class)->except(['create']);

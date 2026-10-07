@@ -22,8 +22,18 @@ class FlightsController extends Controller
         // $data = Flight::where('id','>',1)->get();
         //  $data = Flight::orderby('id','DESC')->get();
         //  $data = Flight::withTrashed()->orderby('id','DESC')->get();
-         $data = Flight::withTrashed()->with('destinations')->orderby('id','DESC')->get();
-
+         $data = Flight::withTrashed()->with('destinations')->with('booking')->orderby('id','DESC')->get();
+//         if(!empty($data)){
+//         foreach($data as $info ){
+//         $theBooking = $info->booking;
+//         if(!empty($info->booking)){
+// }foreach($theBooking as $booking){ 
+//         echo $booking->traveler_name;
+       
+//         echo $booking->flight->name;
+// }
+//         }
+//         }
         // //  $sum =Flight::where('active','=',1)->sum('active');
         // //  $counter =Flight::withTrashed()->count('active');
         //  $counter =Flight::count('active');
@@ -80,6 +90,7 @@ class FlightsController extends Controller
 
         $flight = new Flight();
         $flight->name=$request->name;
+        $flight->notes=$request->notes;
         $flight->save();
         return redirect()->route('flights');
     }
@@ -89,7 +100,7 @@ class FlightsController extends Controller
     return view('edit_flights',['data'=>$data]) ;
     }
     
-    public function update_flights(String $id,Request $request){
+    public function update_flights(String $id,CreateFlightRequest $request){
     $dataToUpdate =Flight::find($id);
     $dataToUpdate->name=$request->name;
     $dataToUpdate->save();
@@ -97,21 +108,21 @@ class FlightsController extends Controller
 
     }
 
-     public function delete($id)
+     public function delete(String $id)
 {
     Flight::where('id', $id)->forceDelete();
     return redirect()->route('flights');
 }
 
 
-    public function delete_soft( $id){
+    public function delete_soft(String $id){
     $flight =Flight::find($id);
     $flight ->delete();
     return redirect()->route('flights');
     }
 
 
-    public function restore($id)
+    public function restore(String $id)
 {
     Flight::where('id', $id)->restore();
     return redirect()->route('flights');

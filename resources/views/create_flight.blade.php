@@ -22,10 +22,12 @@
 <form action="{{ route('store_flight') }}" method="POST">
   @csrf
   <label for="name">اسم الرحلة:</label><br>
-  <input type="text" id="name" name="name" placeholder="أدخل اسم الرحلة"><br><br> 
+  <input type="text" id="name" name="name" placeholder="أدخل اسم الرحلة"  value="{{ old('name') }}"><br><br> 
   @error('name')
-      <span style="color: red ">{{ $message  }}</span><br>
+  <span style="color: red ">{{ $message  }}</span><br>
   @enderror
+  <label for="notes">ملاحظات ان وجدت :</label><br>
+  <input type="text" id="notes" name="notes" value="{{ old('notes') }}"><br><br> 
   <input type="submit" value="انقر للإضافة">
 </form> 
 
