@@ -1,14 +1,14 @@
 @extends('Main_layout')
 @section('title')
-الكورسات 
+الطلاب 
 @endsection
 
 @section('content')
           <div class="col-12"   style="background-color: white; padding: 15px">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title" style="text-align: center ; float: none">بيانات الكورسات 
-                <a class="btn btn-sm btn-info " href="{{ route('courses_create') }}" style="float: right">اضافه جديده</a>
+                <h3 class="card-title" style="text-align: center ; float: none">بيانات الطلاب 
+                <a class="btn btn-sm btn-info " href="{{ route('students_create') }}" style="float: right">اضافه طالب</a>
                 </h3>
 
                 @if(@Session::has('success'))
@@ -38,7 +38,12 @@
                 <table id="example2" class="table table-bordered table-hover" >
                   <thead>
                     <tr>
-                      <th>اسم الكورس </th>
+                      <th>اسم الطالب </th>
+                      <th>الدوله </th>
+                      <th>العنوان </th>
+                      <th>رقم الهاتف </th>
+                      <th>صورة الطالب </th>
+                      <th>ملاخظات </th>
                       <th>حالة التفعيل </th>
                       <th>تاريخ الاضافه </th>
                       <th>تاريخ التحديث </th>
@@ -49,15 +54,20 @@
                     @foreach ($data as $info)
                         <tr>
                       <td>{{ $info->name }}</td>
+                      <td>{{ $info->country_name }}</td>
+                      <td>{{ $info->address }}</td>
+                      <td>{{ $info->phone }}</td>
+                      <td><img src="{{ asset('uploads/'.$info->image) }}" alt="Student Image" style="width: 70px; height: 70px;"></td>
+                      <td>{{ $info->notes }}</td>
                       <td>@if($info->active==1) مفعل @else غير مفعل @endif</td>
                       <td>{{ $info->created_at }}</td>
                       <td>{{ $info->updated_at }}</td>
-                      <td>
-                        <a href="{{ route('courses_edit',$info->id) }}"  class="button"   style="padding: 10px ;background-color: green ; color: white" >تعديل</a>
-                        <a href="{{ route('courses_destroy',$info->id) }}"  class="button"  style="background-color: red ;   margin-right: 10px ; padding: 10px ; color: white" >حذف </a>
+                      <th style="width:13%">
+                        <a href="{{ route('students_edit',$info->id) }}"  class="button"   style="padding: 5px ;background-color: green ; color: white" >تعديل</a> 
+                        <a href="{{ route('students_destroy',$info->id) }}"  class="button"  style="background-color: red ;  padding: 5px ; color: white" >   حذف </a>
 
 
-                      </td>
+                      </th>
                     </tr> 
                     @endforeach
                    

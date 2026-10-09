@@ -5,6 +5,7 @@ use App\Http\Controllers\FlightsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\StudentsController;
 /*Route::get('/', function () {
     return view('welcome');
 });*/
@@ -129,9 +130,19 @@ route::get('restore/{id}',[FlightsController::class,'restore'])->name('restore')
 route::get('courses',[CourseController::class,'index'])->name('courses.index');
 route::get('create_courses',[CourseController::class,'create'])->name('courses_create');
 route::post('store_courses',[CourseController::class,'store'])->name('courses_store');
+route::get('edit_courses/{id}',[CourseController::class,'edit'])->name('courses_edit');
+route::post('update_courses/{id}',[CourseController::class,'update'])->name('courses_update');
+route::get('destroy_courses/{id}',[CourseController::class,'destroy'])->name('courses_destroy');
 
 
 
+// start Student routes
+route::get('students',[StudentsController::class,'index'])->name('students.index');
+route::get('create_students',[StudentsController::class,'create'])->name('students_create');
+route::post('store_students',[StudentsController::class,'store'])->name('students_store');
+route::get('edit_students/{id}',[StudentsController::class,'edit'])->name('students_edit');
+route::post('update_students/{id}',[StudentsController::class,'update'])->name('students_update');
+route::get('destroy_students/{id}',[StudentsController::class,'destroy'])->name('students_destroy');
 
 
 
