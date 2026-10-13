@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\StudentsController;
+use App\Http\Controllers\Training_courses_Controller;
 /*Route::get('/', function () {
     return view('welcome');
 });*/
@@ -144,6 +145,13 @@ route::get('edit_students/{id}',[StudentsController::class,'edit'])->name('stude
 route::post('update_students/{id}',[StudentsController::class,'update'])->name('students_update');
 route::get('destroy_students/{id}',[StudentsController::class,'destroy'])->name('students_destroy');
 
+// start training courses routes
+route::get('training_courses',[Training_courses_Controller::class,'index'])->name('training_courses.index');
+route::get('create_training_courses',[Training_courses_Controller::class,'create'])->name('training_courses_create');
+route::post('store_training_courses',[Training_courses_Controller::class,'store'])->name('training_courses_store');
+route::get('edit_training_courses/{id}',[Training_courses_Controller::class,'edit'])->name('training_courses_edit');
+route::post('update_training_courses/{id}',[Training_courses_Controller::class,'update'])->name('training_courses_update');
+route::get('destroy_training_courses/{id}',[Training_courses_Controller::class,'destroy'])->name('training_courses_destroy');
 
 
 Route::resource('country',CountiesController::class);
