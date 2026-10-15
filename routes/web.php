@@ -18,6 +18,9 @@ route :: get('/', [homeController::class,'index'])->name('home');
 // return 'Zaid Alshathly';
 // });
 
+// route::get('hi',function(){
+    
+// })->middleware('PoliceMan'); 
 
 /*route::get ('/zaid/{age?}/{country?}',function($age =21,$country ='yemen'){
     return 'My name is Zaid Alshathly and my age is '.$age .', my country is ' .$country;
@@ -144,14 +147,19 @@ route::post('store_students',[StudentsController::class,'store'])->name('student
 route::get('edit_students/{id}',[StudentsController::class,'edit'])->name('students_edit');
 route::post('update_students/{id}',[StudentsController::class,'update'])->name('students_update');
 route::get('destroy_students/{id}',[StudentsController::class,'destroy'])->name('students_destroy');
+route::post('ajax_search_students',[StudentsController::class,'ajax_search_students'])->name('students.ajax_search');
 
 // start training courses routes
 route::get('training_courses',[Training_courses_Controller::class,'index'])->name('training_courses.index');
-route::get('create_training_courses',[Training_courses_Controller::class,'create'])->name('training_courses_create');
-route::post('store_training_courses',[Training_courses_Controller::class,'store'])->name('training_courses_store');
-route::get('edit_training_courses/{id}',[Training_courses_Controller::class,'edit'])->name('training_courses_edit');
-route::post('update_training_courses/{id}',[Training_courses_Controller::class,'update'])->name('training_courses_update');
-route::get('destroy_training_courses/{id}',[Training_courses_Controller::class,'destroy'])->name('training_courses_destroy');
+route::get('create_training_courses',[Training_courses_Controller::class,'create'])->name('training_courses.create');
+route::post('store_training_courses',[Training_courses_Controller::class,'store'])->name('training_courses.store');
+route::get('edit_training_courses/{id}',[Training_courses_Controller::class,'edit'])->name('training_courses.edit');
+route::post('update_training_courses/{id}',[Training_courses_Controller::class,'update'])->name('training_courses.update');
+route::get('destroy/{id}',[Training_courses_Controller::class,'destroy'])->name('training_courses.destroy');
+route::get('details_training_courses/{id}',[Training_courses_Controller::class,'details'])->name('training_courses.details');
+route::get('addStudentTo_details_training_courses/{id}',[Training_courses_Controller::class,'addStudent'])->name('training_courses.add_student');
+route::post('DOaddStudentTo_details_training_courses/{id}',[Training_courses_Controller::class,'DOaddStudent'])->name('training_courses.DOadd_student');
+route::get('DeletStudentFrom_training_courses/{id}',[Training_courses_Controller::class,'DeletStudent'])->name('training_courses.Delet_student');
 
 
 Route::resource('country',CountiesController::class);

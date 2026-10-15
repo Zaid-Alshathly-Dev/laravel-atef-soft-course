@@ -32,9 +32,18 @@
                     </div>
                   </div> --}}
                 </div>
+               <div class="col-md-3">
+                <label></label>
+                  
+                    <input  type="text" name="searchByName" placeholder="بحث باسم الطالب    " class="form-control" id="searchByName" >
+                    
+                </div>
               </div>
+
+              <div class="card-body table-responsive p-0" style="height:auto;" id="ajax_responce_dev">
+             
+
               @if(@isset ($data) and !@empty($data) and count($data) > 0)
-              <div class="card-body table-responsive">
                 <table id="example2" class="table table-bordered table-hover" >
                   <thead>
                     <tr>
@@ -87,3 +96,32 @@
         
 
 @endsection  
+
+
+
+@section('scripts')
+<script>
+// تأكد أن الـ jQuery متوفر وتعمل الدالة هكذا:
+$(document).on('input', '#searchByName', function() {
+    var searchVal = $(this).val();
+    console.log("تم الكتابة: " + searchVal); // افتح F12 ثم Console لترى إذا كانت تظهر هذه الكلمة
+
+    jQuery.ajax({
+        url: "{{ route('students.ajax_search') }}",
+        type: 'post',
+        dataType: 'html',
+        cache: false,
+        data: {
+            '_token': "{{ csrf_token() }}",
+            'name': searchVal
+        },
+        success: function(data) {
+            $('#ajax_responce_dev').html(data);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log("خطأ في الأجاكس: " + textStatus);
+        }
+    });
+});
+</script>
+@endsection

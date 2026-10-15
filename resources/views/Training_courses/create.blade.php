@@ -12,7 +12,7 @@
                 {{ @Session::get('error'); }}
                 </div>
                 @endif
-     <form role="form"  method="POST" action="{{ route('training_courses_store') }}" style="background-color: white ; width:80% ; margin: 0 auto ; ">
+     <form role="form"  method="POST" action="{{ route('training_courses.store') }}" style="background-color: white ; width:80% ; margin: 0 auto ; ">
         @csrf        
         <div class="card-body">
                 <div class="form-group">

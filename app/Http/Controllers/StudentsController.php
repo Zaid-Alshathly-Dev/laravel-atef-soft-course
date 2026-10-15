@@ -108,5 +108,18 @@ class StudentsController extends Controller
                 return redirect()->route('students.index')->with('success', 'تم حذف الطالب بنجاح');
             }
 
+            public function ajax_search_students(Request $request){
+            if($request->ajax()){
+                $name=$request->name;
+                $data=Students::where('name','like',"%{$name}%")->get();
+             if(!empty($data)){
+            foreach($data as $info){
+                $info->country_name=CountrieModel::where('id','=',$info->country_id)->value('name');
+            }
+            }
+            return view('students.ajax_search_students',['data'=>$data]);
+ }
+            }
+
 
 }

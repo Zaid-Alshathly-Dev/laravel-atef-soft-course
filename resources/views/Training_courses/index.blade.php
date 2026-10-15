@@ -8,7 +8,7 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title" style="text-align: center ; float: none">بيانات الطلاب 
-                <a class="btn btn-sm btn-info " href="{{ route('training_courses_create') }}" style="float: right">اضافه حجز</a>
+                <a class="btn btn-sm btn-info " href="{{ route('training_courses.create') }}" style="float: right">اضافه حجز</a>
                 </h3>
 
                 @if(@Session::has('success'))
@@ -33,8 +33,8 @@
                   </div> --}}
                 </div>
               </div>
-              @if(@isset ($data) and !@empty($data) and count($data) > 0)
               <div class="card-body table-responsive">
+              @if(@isset ($data) and !@empty($data) and count($data) > 0)
                 <table id="example2" class="table table-bordered table-hover" >
                   <thead>
                     <tr>
@@ -59,8 +59,9 @@
                       <td>{{ $info->created_at }}</td>
                       <td>{{ $info->updated_at }}</td>
                       <th style="width:13%">
-                        <a href="{{ route('training_courses_edit',$info->id) }}"  class="button"   style="padding: 5px ;background-color: green ; color: white" >تعديل</a> 
-                        <a href="{{ route('training_courses_destroy',$info->id) }}"  class="button"  style="background-color: red ;  padding: 5px ; color: white" >   حذف </a>
+                        <a href="{{ route('training_courses.edit',$info->id) }}"  class="button"   style="padding: 5px ;background-color: green ; color: white" >تعديل</a> 
+                        <a href="{{ route('training_courses.destroy',$info->id) }}"  class="button"  style="background-color: red ;  padding: 5px ; color: white" >   حذف </a> <br><br>
+                        <a href="{{ route('training_courses.details',$info->id) }}"  class="button"   style="padding: 5px ; margin-top: 5px ; background-color: rgb(221, 194, 19) ; color: white" >تفاصيل</a> 
 
 
                       </th>
