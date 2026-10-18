@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\PoliceMan;
+use App\Http\Middleware\Setlocale;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -15,8 +16,16 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
     'PoliceMan'=>PoliceMan::class
         ]);
-          $middleware->append(PoliceMan::class);
-    })
+        //   $middleware->append(PoliceMan::class);
+   
+          $middleware->web(append:
+            [Setlocale::class]
+            );
+
+})
+
+
+
     ->withExceptions(function (Exceptions $exceptions): void {
         //
     })->create();

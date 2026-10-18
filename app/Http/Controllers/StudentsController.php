@@ -6,11 +6,24 @@ use App\Http\Requests\CreateStudentsRequests;
 use Illuminate\Http\Request;
 use App\Models\Students;
 use App\Models\CountrieModel;
-
+use App\Traits\GeneralTraits;
+use App\Models\User;
+use App\Notifications\CreateStudent;
+use Illuminate\Support\Facades\Storage;
+use GuzzleHttp\Promise\Create;
+use Illuminate\Support\Facades\Notification;
 class StudentsController extends Controller
 {
+
+use GeneralTraits;
+
      public function index(){
-        $data=Students::all();
+
+        // Zaid();
+
+        $this->zaid_soft();
+        session()->put('locale','ar');
+        $data=Students::paginate(4);
          if(!empty($data)){
             foreach($data as $info){
                 $info->country_name=CountrieModel::where('id','=',$info->country_id)->value('name');
@@ -48,6 +61,14 @@ class StudentsController extends Controller
         $Student->image=$imageName;
      }
     $Student->save();
+
+// ارسال الاشعار لكل المستخدمين 
+$users=User::select("id")->get();
+$content="تم اضافة طالب جديد باسم ".$request->name;
+Notification::send($users,new CreateStudent($request->name,$content));
+
+
+
 
         return redirect()->route('students.index')->with('success', 'تم اضافة بيانات الطالب بنجاح');
 
@@ -111,7 +132,7 @@ class StudentsController extends Controller
             public function ajax_search_students(Request $request){
             if($request->ajax()){
                 $name=$request->name;
-                $data=Students::where('name','like',"%{$name}%")->get();
+                $data=Students::where('name','like',"%{$name}%")->paginate(1);
              if(!empty($data)){
             foreach($data as $info){
                 $info->country_name=CountrieModel::where('id','=',$info->country_id)->value('name');

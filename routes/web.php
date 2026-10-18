@@ -20,7 +20,21 @@ route :: get('/', [homeController::class,'index'])->name('home');
 
 // route::get('hi',function(){
     
-// })->middleware('PoliceMan'); 
+// })->middleware('PoliceMan');
+
+route::get('ar',function(){
+session()->put('locale','ar');
+return redirect()->back();
+})->name('ar');
+
+
+
+route::get('en',function(){
+    session()->put('locale','en');
+    return redirect()->back();
+    
+})->name('en');
+
 
 /*route::get ('/zaid/{age?}/{country?}',function($age =21,$country ='yemen'){
     return 'My name is Zaid Alshathly and my age is '.$age .', my country is ' .$country;

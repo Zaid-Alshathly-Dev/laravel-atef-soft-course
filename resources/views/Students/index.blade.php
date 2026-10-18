@@ -8,7 +8,12 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title" style="text-align: center ; float: none">بيانات الطلاب 
-                <a class="btn btn-sm btn-info " href="{{ route('students_create') }}" style="float: right">اضافه طالب</a>
+
+               <a href="{{ route('ar') }}">ar</a>   
+               <a href="{{ route('en') }}">en</a>   
+               
+                {{-- <a class="btn btn-sm btn-info " href="{{ route('students_create') }}" style="float: right">اضافه طالب</a> --}}
+                <a class="btn btn-sm btn-info " href="{{ route('students_create') }}" style="float: right">{{__('mycustom.ADDNEW')}} </a>
                 </h3>
 
                 @if(@Session::has('success'))
@@ -83,6 +88,11 @@
                     
                   </tbody>
                 </table>
+
+                <div class="col-md-12" >
+                                    <br>
+                    {{ $data->links('pagination::bootstrap-4') }}
+                </div>
               </div>
                 @else
                 <div style="text-align: center; padding: 20px; font-size: 20px; color: red">
@@ -101,6 +111,8 @@
 
 @section('scripts')
 <script>
+
+  $(document).ready(function(){
 // تأكد أن الـ jQuery متوفر وتعمل الدالة هكذا:
 $(document).on('input', '#searchByName', function() {
     var searchVal = $(this).val();
@@ -122,6 +134,37 @@ $(document).on('input', '#searchByName', function() {
             console.log("خطأ في الأجاكس: " + textStatus);
         }
     });
+
 });
+
+$(document).on('click','#ajax-pagination-in-search a',function(e){
+
+  e.preventDefault();
+  var name = $(this).val();
+  var url = $(this).attr("href");
+
+    jQuery.ajax({
+        url:url,
+        type: 'post',
+        dataType: 'html',
+        cache: false,
+        data: {
+            '_token': "{{ csrf_token() }}",
+            'name': name
+        },
+        success: function(data) {
+            $('#ajax_responce_dev').html(data);
+        },
+        error: function() {
+         
+        }
+    });
+
+});
+
+
+
+});
+
 </script>
 @endsection
