@@ -1,4 +1,6 @@
+{{-- {{ dump("7") }} --}}
 @extends('Main_layout')
+
 @section('title')
   الصفحة الرئيسية
     @endsection

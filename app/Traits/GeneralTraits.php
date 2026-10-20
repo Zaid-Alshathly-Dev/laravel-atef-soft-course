@@ -5,7 +5,7 @@ trait GeneralTraits{
 
 function zaid_soft(){
 
-echo 'hi zaid_soft';
+// echo 'hi zaid_soft';
 }
 
 }

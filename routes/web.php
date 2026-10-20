@@ -7,16 +7,24 @@ use App\Http\Controllers\homeController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\StudentsController;
 use App\Http\Controllers\Training_courses_Controller;
+
 /*Route::get('/', function () {
     return view('welcome');
 });*/
 
+// dump('5');
+
+Route::redirect('zaid', 'zaidoon ', 301);
 
 route :: get('/', [homeController::class,'index'])->name('home');
 
 // route::get ('/',function(){
 // return 'Zaid Alshathly';
 // });
+
+Route::get('/hi',function(){
+    return "welcome to zaid alshathly web";
+});
 
 // route::get('hi',function(){
     
@@ -73,6 +81,7 @@ route::get('en',function(){
 
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\wellcomeController;
 use App\Models\Flight;
 
 // route ::get('/zaid', [UserController::class, 'asd']);
@@ -179,6 +188,26 @@ route::get('DeletStudentFrom_training_courses/{id}',[Training_courses_Controller
 Route::resource('country',CountiesController::class);
 // Route::resource('country',CountiesController::class)->except(['create']);
 // Route::resource('country',CountiesController::class)->only(['create']);
+
+// الروت الخاصه بالمزود الخدمه 
+route::get('wellcome',[wellcomeController::class,'index']);
+// route::get('myfacade',[wellcomeController::class,'myfacade']);
+
+route::redirect('here1','https://www.google.com/');
+route::permanentRedirect('here2','https://www.google.com/');
+
+
+route::get('getmyrouteinfo/{username}',[wellcomeController::class,'getmyrouteinfo'])->name('get_my_route_info');
+route::get('myfacade',[wellcomeController::class,'myfacade']);
+
+
+
+
+
+
+
+
+
 
 route:: fallback(function(){
     

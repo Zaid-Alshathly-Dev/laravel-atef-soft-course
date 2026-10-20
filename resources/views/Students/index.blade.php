@@ -37,12 +37,32 @@
                     </div>
                   </div> --}}
                 </div>
+                <div class="row">
                <div class="col-md-3">
-                <label></label>
-                  
-                    <input  type="text" name="searchByName" placeholder="بحث باسم الطالب    " class="form-control" id="searchByName" >
-                    
+                 
+                <br> 
+                 <label>البحث باسم الطالب </label>
+                 
+                 <input  type="text" name="searchByName" placeholder="بحث باسم الطالب    " class="form-control" id="searchByName" >
+                 
                 </div>
+                
+                <div class="col-md-3">
+                <div class="form-group">
+                  <br>
+                          <label>بحث بحالة التفعيل </label>
+                          <select  nameء="active_search"  id="active_search" class="form-control " >
+                              <option value="all"> بحث بالكل  </option>
+                            <option value="1" > مفعل</option>
+                            <option value="0" > معطل</option>
+                              
+                           
+                          </select>
+                          
+                        </div>
+                        </div>
+
+              </div>
               </div>
 
               <div class="card-body table-responsive p-0" style="height:auto;" id="ajax_responce_dev">
@@ -71,8 +91,13 @@
                       <td>{{ $info->country_name }}</td>
                       <td>{{ $info->address }}</td>
                       <td>{{ $info->phone }}</td>
-                      <td><img src="{{ asset('uploads/'.$info->image) }}" alt="Student Image" style="width: 70px; height: 70px;"></td>
-                      <td>{{ $info->notes }}</td>
+                      <td>
+                          @if(!empty($info->image))
+                              <img src="{{ asset('uploads/' . $info->image) }}" alt="Student Image" style="width: 70px; height: 70px;">
+                          @else
+                              <span style="color: gray; font-size: 12px;">لا توجد صورة</span>
+                          @endif
+                      </td>                      <td>{{ $info->notes }}</td>
                       <td>@if($info->active==1) مفعل @else غير مفعل @endif</td>
                       <td>{{ $info->created_at }}</td>
                       <td>{{ $info->updated_at }}</td>
@@ -114,9 +139,10 @@
 
   $(document).ready(function(){
 // تأكد أن الـ jQuery متوفر وتعمل الدالة هكذا:
-$(document).on('input', '#searchByName', function() {
-    var searchVal = $(this).val();
-    console.log("تم الكتابة: " + searchVal); // افتح F12 ثم Console لترى إذا كانت تظهر هذه الكلمة
+
+function make_search(){
+   var searchVal = $("#searchByName").val();
+   var active_search = $("#active_search").val();
 
     jQuery.ajax({
         url: "{{ route('students.ajax_search') }}",
@@ -125,15 +151,29 @@ $(document).on('input', '#searchByName', function() {
         cache: false,
         data: {
             '_token': "{{ csrf_token() }}",
-            'name': searchVal
+            'name': searchVal,active:active_search
         },
         success: function(data) {
             $('#ajax_responce_dev').html(data);
         },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.log("خطأ في الأجاكس: " + textStatus);
+        error: function() {
+           
         }
     });
+
+
+
+
+}
+
+$(document).on('change', '#searchByName', function() {
+   make_search();
+
+});
+
+$(document).on('change', '#active_search', function() {
+  
+   make_search();
 
 });
 
@@ -141,6 +181,7 @@ $(document).on('click','#ajax-pagination-in-search a',function(e){
 
   e.preventDefault();
   var name = $(this).val();
+   var active_search = $("#active_search").val();
   var url = $(this).attr("href");
 
     jQuery.ajax({
@@ -150,7 +191,7 @@ $(document).on('click','#ajax-pagination-in-search a',function(e){
         cache: false,
         data: {
             '_token': "{{ csrf_token() }}",
-            'name': name
+            'name': name, active: active_search
         },
         success: function(data) {
             $('#ajax_responce_dev').html(data);

@@ -22,8 +22,13 @@
                       <td>{{ $info->country_name }}</td>
                       <td>{{ $info->address }}</td>
                       <td>{{ $info->phone }}</td>
-                      <td><img src="{{ asset('uploads/'.$info->image) }}" alt="Student Image" style="width: 70px; height: 70px;"></td>
-                      <td>{{ $info->notes }}</td>
+                      <td>
+                          @if(!empty($info->image))
+                              <img src="{{ asset('uploads/' . $info->image) }}" alt="Student Image" style="width: 70px; height: 70px;">
+                          @else
+                              <span style="color: gray; font-size: 12px;">لا توجد صورة</span>
+                          @endif
+                      </td>                      <td>{{ $info->notes }}</td>
                       <td>@if($info->active==1) مفعل @else غير مفعل @endif</td>
                       <td>{{ $info->created_at }}</td>
                       <td>{{ $info->updated_at }}</td>
