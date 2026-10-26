@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\courses;
 use App\Http\Requests\CreateCourseValidationRequest;
+// use App\Http\Controllers\merge;
 
 class courseController extends Controller
 {
@@ -19,6 +20,32 @@ class courseController extends Controller
     }
 
     public function store(CreateCourseValidationRequest $request){
+    // return $name=$request->input('name');
+    //     die();
+
+    // if($request->has('name') ){
+    //     dd('yes');
+    // }
+    
+    // if($request->has(['name','active']) ){
+    //     dd('yes');
+    // }
+
+
+
+     $originalData =$request->all();
+     $request->merge(['votes'=>0]);
+     $request->merge(['name'=>'zaid']);
+     
+     
+      $request->mergeIfMissing(['userid'=>'1']);
+      return response()->json([
+        'originalData' => $originalData,
+        'AfterMerg' => $request->all()
+      ]);
+    dd('done');
+
+
     $counter=courses::where('name',$request->name)->count();
     if($counter > 0){
         return redirect()->back()->with('error', 'اسم الكورس موجود مسبقا')->withInput();

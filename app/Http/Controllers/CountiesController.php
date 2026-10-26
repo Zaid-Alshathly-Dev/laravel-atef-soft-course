@@ -32,6 +32,9 @@ class CountiesController extends Controller
      */
     public function store(CreateCountry $request )
     {
+     
+
+
     
         $contry = new CountrieModel();
         $contry->name=$request->name;

@@ -53,6 +53,57 @@ use GeneralTraits;
     $Student->national_id = $request->national_id;
     $Student->notes = $request->notes;
     $Student->address = $request->address;
+
+    // امثله لاضافه صوره 
+    // $request->photo;
+    // $request->file('photo');
+    // if($request->hasfile('photo')){
+    //     dd('تم اضافه صوره بالفعل'); 
+    // }
+
+    /*$file=$request->file('photo');
+    if($request->hasfile('photo')){
+    if($file->isValid()){
+    return response()->json([
+    'original_name'=>$file->getClientOriginalName(),
+    'extention'=>$file->getClientOriginalExtension(),
+    'size'=>$file->getSize(),
+    'path'=>$file->getRealPath(),
+
+    ]
+    );
+    }else{
+
+    return response()->json([
+
+    'error'=>'فشل رفع الملف '
+
+    ]);
+
+    }
+    }
+
+dd();
+*/
+
+// $path=$request->photo->store('images');
+$path=$request->photo->store('images','public');
+// $path=$request->photo->storeAs('images','zaid');
+dd($path);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
      if($request->has('photo')){
         $image=$request->photo;
         $extension=strtolower($image->extension());

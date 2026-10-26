@@ -7,12 +7,111 @@ use App\Http\Controllers\homeController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\StudentsController;
 use App\Http\Controllers\Training_courses_Controller;
+use Illuminate\Http\Request;
+use Psr\Http\Message\ServerRequestInterface;
+use app\Models\User;
+use Illuminate\Support\Facades\Cookie;
+
 
 /*Route::get('/', function () {
     return view('welcome');
 });*/
 
 // dump('5');
+
+Route::get('/testRequest', function(Request $request){
+   
+// return $request->all();
+// return [
+// 'path'=>$request->path(),
+// 'url'=>$request->url(),
+// 'host'=>$request->host(),
+// 'method'=>$request->method(),
+// ];
+
+// return $request->header('user-agent');
+// return $request->header('X-App-Name','zaid ');
+
+// return $countenTypes= $request->getAcceptablecontentType();
+
+// if($request->hasHeader('X-Header-Name')){
+// return "found";
+// }else{
+
+// return "not found";
+    
+// }
+
+// if($request->hasHeader('AppKey')=="zaid"){
+// return response()->json(['data'=>'success operation']);
+// }else{
+
+// return response()->json(['data'=>'faild operation']);
+    
+// }
+
+
+
+});
+
+
+// route::get('/sendMyHeaders',function(Request $request){
+//     return response("zaid alshathly")->header('AppName','pos')->header('Version','3');
+// });
+
+route::get('contentNegotiation',function(Request $request){
+// $countenTypes = $request->getAcceptableContentTypes();
+
+// if($request->accepts(['text/html','application/json'])){
+// return "accepts text, html";
+// }else{
+// return " not accepts application , json";
+    
+// }
+
+// $preferred = $request->prefers(['text/html','application/json']);
+// return "النوع المفضل لدي ".$preferred; 
+
+if($request->expectsJson()){
+    return response()->json(['key'=>'value']);
+}else {
+    return "no please!";
+}
+
+});
+
+
+route::get('psr7',function(ServerRequestInterface $request){
+$method = $request->getMethod();
+$uri = $request->getUri();
+$headers = $request->getHeaders();
+return response()->json([
+'method' => $method,
+'uri' => $uri,
+'headers' => $headers,
+
+
+]);
+});
+
+
+
+
+
+
+
+
+
+route::get('/sendMyHeadersToMe',function(Request $request){
+
+$request->headers->set('AppName','اهلا بكم في اليمن ');
+$headerValue = $request->header('AppName');
+    return " اهل الخليج العربي ".$headerValue;
+    
+});
+
+
+
 
 Route::redirect('zaid', 'zaidoon ', 301);
 
@@ -201,10 +300,66 @@ route::get('getmyrouteinfo/{username}',[wellcomeController::class,'getmyrouteinf
 route::get('myfacade',[wellcomeController::class,'myfacade']);
 
 
+//simple_response_string
+route::get('/simple_response_string',function(){
+return "hello word";
+});
 
+// simple_response_array
+route::get('/simple_response_array',function(){
+return [1,2,3];
+});
 
-
-
+// simple_response_header
+route::get('/simple_response_header',function(){
+    return response("hello word",200)->
+    header('content-type','text/plain');
+    });
+    
+    route::get('/user/{user}',function(User $user){
+        return $user;
+        });
+        
+        
+        
+    route::get('/return_multi_headers',function(){
+    return response("multi headers")->
+    header('content-type','json')->
+    header('X-header-One','header Value')->
+    header('X-header-Two','header Value');
+    });
+    
+    
+    
+    route::get('/return_multi_headers_array',function(){
+        return response("multi headers array")->
+        withHeaders([
+            'content-type'=>'json',
+            'X-header-One'=>'header Value',
+            'X-header-Two'=>'header Value'
+            ]);
+            
+            });
+            
+            route::get('/return_cookie',function(){
+            return response('hello word cookie')->cookie(
+        'zaid alshathly','student',30,'/',null,true,true 
+            );
+            });
+            
+            cookie::queue('color','red',60);
+            cookie::expire('zaid alshathly');
+            
+            
+            route::get('/ready_cookie',function(){
+           $cookie = cookie('size','41',60) ;    
+            return response('hello word cookie2')->cookie($cookie);
+            });
+            
+            
+            route::get('/remove_cookie',function(){
+            return response('hello remove cookie2')->withoutCookie('zaid alshathly');
+            });
 
 
 
