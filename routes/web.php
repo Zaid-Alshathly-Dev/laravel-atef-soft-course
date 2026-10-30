@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use Psr\Http\Message\ServerRequestInterface;
 use app\Models\User;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\URL;
+
 
 
 /*Route::get('/', function () {
@@ -182,6 +184,7 @@ route::get('en',function(){
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\wellcomeController;
 use App\Models\Flight;
+use Illuminate\Support\Facades\Response;
 
 // route ::get('/zaid', [UserController::class, 'asd']);
 // route ::get('/hareth', [UserController::class, 'age']);
@@ -259,6 +262,7 @@ route::post('store_courses',[CourseController::class,'store'])->name('courses_st
 route::get('edit_courses/{id}',[CourseController::class,'edit'])->name('courses_edit');
 route::post('update_courses/{id}',[CourseController::class,'update'])->name('courses_update');
 route::get('destroy_courses/{id}',[CourseController::class,'destroy'])->name('courses_destroy');
+route::get('testUrl_courses',[CourseController::class,'testUrl'])->name('courses.testUrl');
 
 
 
@@ -270,6 +274,7 @@ route::get('edit_students/{id}',[StudentsController::class,'edit'])->name('stude
 route::post('update_students/{id}',[StudentsController::class,'update'])->name('students_update');
 route::get('destroy_students/{id}',[StudentsController::class,'destroy'])->name('students_destroy');
 route::post('ajax_search_students',[StudentsController::class,'ajax_search_students'])->name('students.ajax_search');
+
 
 // start training courses routes
 route::get('training_courses',[Training_courses_Controller::class,'index'])->name('training_courses.index');
@@ -360,6 +365,106 @@ route::get('/simple_response_header',function(){
             route::get('/remove_cookie',function(){
             return response('hello remove cookie2')->withoutCookie('zaid alshathly');
             });
+
+
+            route::get('/redirect_dashbord',function(){
+            return redirect('/remove_cookie');
+            });
+            
+            
+            route::get('/return_back',function(){
+            return back();
+            });
+            
+            route::get('/return_redirect_to_route',function(){
+                return redirect()->route('courses.index');
+                });
+                
+                
+                // توجييه لداله معينه  
+                route::get('/return_redirect_add_courses',function(){
+                    return redirect()->action([CourseController::class,'create']);
+                    });
+                    
+                    
+                    
+                    route::get('/return_redirect_edit_courses',function(){
+                        return redirect()->action([CourseController::class,'edit'],['id'=>1]);
+                        });
+                        
+                        
+                        
+            route::get('/return_external_domain',function(){
+                return redirect()->away('https://gemini.google.com/');
+                        });
+
+
+                route::get('/return_view ',function(){
+                    return response()->view('hello_view',['name'=>'zaid alshathly'],200)->header('content-Type','text-Json');
+                        });
+                        
+                        
+                        route::get('/return_json_data ',function(){
+                        return response()->json([
+                    'name'=>'zaid',
+                    'state'=>'active',
+                        ]);
+                        });
+                        
+                        
+                        route::get('/jsonp ',function(Request $request){
+                        return response()->json([
+                    'name'=>'zaid',
+                    'state'=>'200',
+                        ])->withCallback($request->input('callback'));
+                        });
+
+                        route::get('download_file',function(){
+                        return response()->download(public_path('zaid.pdf.txt'));
+                        });
+
+
+                        route::get('/stream',function(){
+                        return response()->stream(function(): void {
+                            foreach(['devloper','admin','zaid','braa','hareth','amr'] as $string){
+                                echo $string ,"<br>";
+                                ob_flush();
+                                flush();
+                                sleep(2);
+                                
+
+                            }
+                        },200,['X-Accel-Buffering'=>'no'] );
+                        });
+
+
+    // route::get('test_macro', function(){
+    //     return response()->caps('zaid');  
+    // });
+
+
+
+
+    route::get('unsubsecribe/{userid}',function(Request $request){
+    if(! $request -> hasValidSignature()){
+        abort(401);
+    }
+    return "تم الغاء الاشتراك بنجاح " ;
+    })->name('unsubsecribe');
+
+
+    route::get('send_email_var',function(){
+    $url = URL::temporarySignedRoute(
+    'unsubsecribe', now()->addMinutes(1),['userid'=>1]        
+
+    );
+    return "رابط الالغاء الخاص بكم : <a href='{$url}'> {$url} </a>" ;
+    });
+
+
+
+
+
 
 
 

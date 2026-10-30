@@ -139,6 +139,10 @@ class Training_courses_Controller extends Controller
             $data_training_courses_enrolments->delete();
             return redirect()->route('training_courses.details',$data_training_courses_enrolments['training_course_id'])->with('success', 'تم حذف الطالب بنجاح');
         }
+
+
+
+       
 }
 
 

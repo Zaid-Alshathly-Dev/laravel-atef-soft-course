@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\courses;
 use App\Http\Requests\CreateCourseValidationRequest;
 // use App\Http\Controllers\merge;
+use Illuminate\Support\Facades\URL;
 
 class courseController extends Controller
 {
@@ -101,4 +102,27 @@ class courseController extends Controller
                 $data->delete();
                 return redirect()->route('courses.index')->with('success', 'تم حذف الكورس بنجاح');
             }
+
+
+             public function testUrl(){
+                $id=1;
+            // echo url("/posts/{$id}");
+            // echo url()->query('/post',['search'=>'laravel']);
+            // echo url()->query('/post?sort=latest',['search'=>'laravel']);
+            // echo url()->query('/post?sort=latest',['search'=>'oldest']);
+            // echo $url = url()-> query('/posts',['columns'=>['titel','body']]);
+            // $url = url()-> query('/posts',['columns'=>['titel','body']]);
+
+            // echo urldecode($url);
+
+        // echo  url()->current();
+        // echo  url()->full();
+        // echo  url()->previous();
+        // echo  url()->previousPath();
+
+        // echo  URL::current();
+
+
+        return URL::signedRoute('unsubsecribe',['userid'=>1]);
+        }
 }
