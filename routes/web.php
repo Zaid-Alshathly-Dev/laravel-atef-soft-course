@@ -12,6 +12,9 @@ use Psr\Http\Message\ServerRequestInterface;
 use app\Models\User;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Cache;
+
 
 
 
@@ -460,6 +463,238 @@ route::get('/simple_response_header',function(){
     );
     return "رابط الالغاء الخاص بكم : <a href='{$url}'> {$url} </a>" ;
     });
+
+
+
+
+
+
+
+    route::get('setSession', function(Request $request){
+$request->session()->put('username','zaid alshathly');
+$request->session()->put('user_id',1);
+$request->session()->put('role','admin');
+return "تم تخزين الجلسه بنجاح" ;
+    });
+    
+    
+    route::get('getSession', function(Request $request){
+    $username = $request->session()->get('username','غير معرف ');
+    $id = $request->session()->get('user_id','غير معرف ');
+    $role = $request->session()->get('role','غير معرف ');
+    return "اسم المستخدم هو ". $username." <br>بصلاحية ". $role ." <br>ورقم المعرف هو ". $id;
+    });
+    
+    // helper session 
+    route::get('SetSessionByHelper', function(){
+    session(['the_name'=>'zaid','the_id'=>5]);
+    return "تم تخزين البيانات بنجاح ";
+    });
+    
+    
+    
+    route::get('GetSessionByHelper', function(){
+        $username=session('the_name','لايوجد');
+        $id=session('the_id','لايوجد');
+        return "اسم المستخدم هو ". $username." <br>ورقم المعرف هو ". $id;
+    });
+    
+    
+    
+    // facade session 
+    route::get('SetSessionByFacade', function(){
+    Session::put('the_name','zaid');
+    Session::put('the_type','admin');
+    return "تم تخزين البيانات بنجاح ";
+    });
+    
+    route::get('GetSessionByFacade', function(){
+        $username=Session::get('the_name','لايوجد');
+        $type=Session::get('the_type','لايوجد');
+        return "اسم المستخدم هو ". $username." <br> والنوع هو ". $type;
+    });
+
+// flash session
+    route::get('/flash_data',function(Request $request){
+    $request->session()->flash('status','تم التنفيذ بنجاح ');
+    return view('flash_session_example');
+    });
+    
+    
+    // reflash session
+    route::get('/reflash_data_frist',function(Request $request){
+        $request->session()->flash('status','هذه الرساله لمدة طلب واحد ');
+        return redirect('/reflash_data_second');
+        });
+        
+        
+            // route::get('/reflash_data_second',function(Request $request){
+            // $request->session()->reflash();
+            // return redirect('/reflash_data_thrid');
+
+            // });
+            
+            
+            route::get('/reflash_data_thrid',function(Request $request){
+            
+                return view('flash_session_example');
+            
+                
+            });
+            
+            
+            //    keep reflash
+            route::get('/keep_data_frist',function(Request $request){
+                $request->session()->flash('username','zaid');
+                $request->session()->flash('role','admin');
+                $request->session()->flash('email','zaid1234554321@gmail.com');
+                return redirect('/keep_data_second');
+                });
+                
+                
+                    // route::get('/keep_data_second',function(Request $request){
+                    // $request->session()->keep(['username','email']);
+                    // // $request->session()->reflash();
+                    // return redirect('/reflash_data_thrid');
+        
+                    // });
+                    
+                    
+                    route::get('/keep_data_thrid',function(Request $request){
+                    
+                        return view('flash_session_example');
+                    
+        
+                    });
+                    
+                    
+            // now session
+            // route::get('/now_session_data',function(Request $request){
+            // $request->session()->now('status','تمت العمليه فورا الان ');
+            // return view('flash_session_example');
+            //     });
+
+
+
+
+        route::get('forget_Session', function(Request $request){
+        // forget one key
+        $request->session()->forget('name');
+        // forget more or multiple keys
+        $request->session()->forget(['name','role']);
+        // forget all keys
+        $request->session()->flush();
+        return "تم حذف البيانات من الجلسه بنجاح" ;
+            });
+            
+            
+            route::get('regenerate_Session', function(Request $request){
+            $request->session()->regenerate();
+            return "تم إعادة توليد الجلسة بنجاح" ;
+                });
+                
+                
+                route::get('invalidate_Session', function(Request $request){
+                $request->session()->invalidate();
+                return 
+                "تم اعادة تعيين معرف الجلسه مع حذف جميع البيانات المخزنه في الجلسه بنجاح" ;
+                    });
+
+
+        route::get('return_session_id', function(Request $request){ 
+                $session_id = $request->session()->getId();
+                return "معرف الجلسه الحالي هو : ".$session_id;
+                        });    
+          
+                        
+      route::get('cache_put',function(Request $request){
+    $session_id = $request->session()->getId();
+    Cache::put("session_{$session_id}_discount", 10 , now()->addMinutes(5));
+    return "تم تخزين البيانات في الكاش الحاليه للجلسه بنجاح";
+      });  
+      
+      
+      route::get('cache_get',function(Request $request){
+        $session_id = $request->session()->getId();
+        $discount = Cache::get("session_{$session_id}_discount");
+            Cache::forget("session_{$session_id}_discount");
+        return "قيمة الخصم المخزنه في الكاش الحاليه للجلسه هي : ".$discount;
+          });  
+          
+          
+        //   route::get('cache_forget',function(Request $request){
+        //     $session_id = $request->session()->getId();
+        //     return "تم حذف البيانات من الكاش الحاليه للجلسه بنجاح";
+        //       });
+
+
+
+
+
+
+//session blocking
+Route::get('session_blocking',function(){
+sleep(5);
+return "تم تنفيذ العملية بنجاح بعد الانتظار 5 ثواني";
+})->block($lockSeconds = 10, $waitSeconds = 10) ;
+
+
+Route::get('session_blocking_show',function(){
+sleep(5);
+return "تم عرض البيانات بنجاح";
+})->block($lockSeconds = 10, $waitSeconds = 10) ;
+
+
+route::get('set_cache_database_example',function(){
+Cache::put('discount', 10 , now()->addMinutes(5));
+Cache::put('role', 100 , now()->addMinutes(5));
+Cache::put('type', 20 , now()->addMinutes(5));
+$discount = Cache::get('discount');
+return " الخصم المخزنه في الكاش الحاليه للجلسه هي : ".$discount;
+});
+
+
+
+
+route::get('forget_cache',function(){
+    // Cache::forget('discount');
+    // Cache::put('discount',15 ,5);
+    Cache::flush();
+    return "تم حذف البيانات من الكاش بنجاح";
+    });
+    
+    route::get('set_cache_Memorization_example',function(){
+    Cache::memo()->put('name','zaid');
+    Cache::memo()->get('name');//قراءه من الكاش الفعلي 
+    Cache::memo()->get('name');//قراءه من الكاش الموقت
+    Cache::memo()->put('name','zaid alshathly');//التعديل على القيمه الموجوده بالذاكره الفعليه 
+    Cache::memo()->get('name');//قراءه من الكاش الفعليه 
+    Cache::memo()->get('name');//قراءه من الكاش الموقته
+    return Cache::memo()->get('name');//عرض القيمه من الكاش الموقته
+        });
+
+
+    route::get('cache_Memorization_example',function(){
+    
+    return $discuont = Cache::memo()->get('discount');
+        });
+    
+
+    route::get('test_deleted_cache',function(){
+        
+        $discount = Cache::get('discount');
+        return " الخصم المخزنه في الكاش الحاليه للجلسه هي : ".$discount;
+    return "تم حذف البيانات من الكاش بنجاح";
+});
+
+
+
+
+
+
+
+
+
 
 
 
