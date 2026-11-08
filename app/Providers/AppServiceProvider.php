@@ -4,6 +4,10 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Response;
+use App\Events\CancelOrderCard;
+use App\Listeners\SendEmailOnCancelOrder;
+use Illuminate\Support\Facades\Event;
+
 
 
 class AppServiceProvider extends ServiceProvider
@@ -27,7 +31,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
     Response::macro('caps', function(String $value){
+
 return Response::make(strtoupper($value));
     });
+     Event::listen(
+            CancelOrderCard::class,
+            SendEmailOnCancelOrder::class
+        );
     }
 }

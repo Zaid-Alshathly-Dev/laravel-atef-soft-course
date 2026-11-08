@@ -7,6 +7,7 @@ use App\Models\courses;
 use App\Http\Requests\CreateCourseValidationRequest;
 // use App\Http\Controllers\merge;
 use Illuminate\Support\Facades\URL;
+use App\Events\courseAddEvent;
 
 class courseController extends Controller
 {
@@ -34,17 +35,17 @@ class courseController extends Controller
 
 
 
-     $originalData =$request->all();
-     $request->merge(['votes'=>0]);
-     $request->merge(['name'=>'zaid']);
+    //  $originalData =$request->all();
+    //  $request->merge(['votes'=>0]);
+    //  $request->merge(['name'=>'zaid']);
      
      
-      $request->mergeIfMissing(['userid'=>'1']);
-      return response()->json([
-        'originalData' => $originalData,
-        'AfterMerg' => $request->all()
-      ]);
-    dd('done');
+    //   $request->mergeIfMissing(['userid'=>'1']);
+    //   return response()->json([
+    //     'originalData' => $originalData,
+    //     'AfterMerg' => $request->all()
+    //   ]);
+    // dd('done');
 
 
     $counter=courses::where('name',$request->name)->count();
@@ -56,6 +57,7 @@ class courseController extends Controller
     $courses->name = $request->name;
     $courses->active = $request->active;
     $courses->save();
+    event(new courseAddEvent($request->name));
 
     // $dtatToInsert = [
     //         'name' => $request->name,
