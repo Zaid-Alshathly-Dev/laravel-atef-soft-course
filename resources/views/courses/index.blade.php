@@ -8,6 +8,8 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title" style="text-align: center ; float: none">بيانات الكورسات 
+                  {{-- call  anonymous component --}}
+                  <x-button/>
                 <a class="btn btn-sm btn-info " href="{{ route('courses_create') }}" style="float: right">اضافه جديده</a>
                 </h3>
 

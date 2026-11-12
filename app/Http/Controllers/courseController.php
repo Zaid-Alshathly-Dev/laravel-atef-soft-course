@@ -8,6 +8,8 @@ use App\Http\Requests\CreateCourseValidationRequest;
 // use App\Http\Controllers\merge;
 use Illuminate\Support\Facades\URL;
 use App\Events\courseAddEvent;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\wellcomeMail;
 
 class courseController extends Controller
 {
@@ -58,7 +60,15 @@ class courseController extends Controller
     $courses->active = $request->active;
     $courses->save();
     event(new courseAddEvent($request->name));
+// ارسال الايمييل 
+$data = [
+    'name' => 'zaid alshathly',
+    'email' => 'zaid20576520@gmail.com',
+    'level' => 'advanced',
+    'course' => ['laravel', 'php', 'mysql']
 
+];
+mail::to('zaid20576520@gmail.com')->send(new wellcomeMail($data));
     // $dtatToInsert = [
     //         'name' => $request->name,
     //         'active' => $request->active

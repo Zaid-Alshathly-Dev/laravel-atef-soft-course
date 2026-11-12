@@ -10,8 +10,16 @@
                 <h3 class="card-title" style="text-align: center ; float: none">بيانات الطلاب 
 
                <a href="{{ route('ar') }}">ar</a>   
-               <a href="{{ route('en') }}">en</a>   
-               
+               <a href="{{ route('en') }}">en</a> 
+               {{-- call component --}}  
+               <x-alert/>
+               <x-info-lable type="success" message="call success component" />
+               <x-info-lable type="error" message="call error component" />
+               <x-infolabelslot type="info">
+
+                call component with slot
+
+               </x-infolabelslot>
                 {{-- <a class="btn btn-sm btn-info " href="{{ route('students_create') }}" style="float: right">اضافه طالب</a> --}}
                 <a class="btn btn-sm btn-info " href="{{ route('students_create') }}" style="float: right">{{__('mycustom.ADDNEW')}} </a>
                 </h3>
@@ -63,7 +71,7 @@
                         </div>
 
               </div>
-              </div>
+              </d iv>
 
               <div class="card-body table-responsive p-0" style="height:auto;" id="ajax_responce_dev">
              

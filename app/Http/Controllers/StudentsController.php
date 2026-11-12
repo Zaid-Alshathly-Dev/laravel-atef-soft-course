@@ -12,6 +12,8 @@ use App\Notifications\CreateStudent;
 use Illuminate\Support\Facades\Storage;
 use GuzzleHttp\Promise\Create;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\DB;
+
 class StudentsController extends Controller
 {
 
@@ -40,7 +42,11 @@ use GeneralTraits;
 
 
     public function store(CreateStudentsRequests $request){
-    $counter=Students::where('name',$request->name)->count();
+
+    try{
+ // بدا معي معامله جديده 
+ DB::beginTransaction();
+$counter=Students::where('name',$request->name)->count();
     if($counter > 0){
         return redirect()->back()->with('error', 'اسم الطالب موجود مسبقا');
     }
@@ -55,74 +61,72 @@ use GeneralTraits;
     $Student->address = $request->address;
 
     // امثله لاضافه صوره 
-    // $request->photo;
-    // $request->file('photo');
+    $request->photo;
+    $request->file('photo');
+    if($request->hasfile('photo')){
+        // dd('تم اضافه صوره بالفعل'); 
+    }
+
+    //  $file=$request->file('photo');
     // if($request->hasfile('photo')){
-    //     dd('تم اضافه صوره بالفعل'); 
+    // if($file->isValid()){
+    // return response()->json([
+    // 'original_name'=>$file->getClientOriginalName(),
+    // 'extention'=>$file->getClientOriginalExtension(),
+    // 'size'=>$file->getSize(),
+    // 'path'=>$file->getRealPath(),
+
+    // ]
+    // );
+    // }else{
+
+    // return response()->json([
+
+    // 'error'=>'فشل رفع الملف '
+
+    // ]);
+
+    // }
     // }
 
-    /*$file=$request->file('photo');
-    if($request->hasfile('photo')){
-    if($file->isValid()){
-    return response()->json([
-    'original_name'=>$file->getClientOriginalName(),
-    'extention'=>$file->getClientOriginalExtension(),
-    'size'=>$file->getSize(),
-    'path'=>$file->getRealPath(),
+// dd();
 
-    ]
-    );
-    }else{
-
-    return response()->json([
-
-    'error'=>'فشل رفع الملف '
-
-    ]);
-
-    }
-    }
-
-dd();
-*/
 
 // $path=$request->photo->store('images');
-$path=$request->photo->store('images','public');
-// $path=$request->photo->storeAs('images','zaid');
-dd($path);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-     if($request->has('photo')){
-        $image=$request->photo;
-        $extension=strtolower($image->extension());
-        $imageName=time().'.'.$extension;
-        $image->move("uploads",$imageName);
-        $Student->image=$imageName;
-     }
+// $path=$request->photo->store('images','public');
+// // $path=$request->photo->storeAs('images','zaid');
+// dd($path);
+    //  if($request->has('photo')){
+    //     $image=$request->photo;
+    //     $extension=strtolower($image->extension());
+    //     $imageName=time().'.'.$extension;
+    //     $image->move("uploads",$imageName);
+    //     $Student->image=$imageName;
+    //  }
     $Student->save();
 
-// ارسال الاشعار لكل المستخدمين 
+// // ارسال الاشعار لكل المستخدمين 
 $users=User::select("id")->get();
 $content="تم اضافة طالب جديد باسم ".$request->name;
 Notification::send($users,new CreateStudent($request->name,$content));
 
+// عمل خطا مصطنع لاختبار التراجع عن المعامله
+// $x=10/0;
+// echo x;
+// بدا في حفظ المعامله في حال لم يتم اي خطأ 
+DB::commit();
 
 
 
         return redirect()->route('students.index')->with('success', 'تم اضافة بيانات الطالب بنجاح');
 
+    
+
+    }catch(\Exception $ex){
+        return redirect()->back()->with('error','حدث خطأ غير متوقع'.$ex->getMessage())->withInput();
+        // تراجع عن كل العمليات في حال وجود اي غلط 
+        DB::rollBack();
+    }
     }
 
 
