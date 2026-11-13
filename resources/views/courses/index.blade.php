@@ -66,6 +66,10 @@
                     
                   </tbody>
                 </table>
+                <div class="col-md-12" >
+                                    <br>
+                    {{ $data->links('pagination::bootstrap-4') }}
+                </div>
               </div>
                 @else
                 <div style="text-align: center; padding: 20px; font-size: 20px; color: red">

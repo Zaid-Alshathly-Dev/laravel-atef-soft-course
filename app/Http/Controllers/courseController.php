@@ -14,7 +14,7 @@ use App\Mail\wellcomeMail;
 class courseController extends Controller
 {
     public function index(){
-        $data=courses::all();
+        $data=courses::paginate(6); 
 
         return view('courses.index',[ 'data' => $data ]);
     }
