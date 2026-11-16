@@ -7,16 +7,26 @@ use App\Http\Controllers\Controller;
 use App\Models\courses;
 use App\Http\Requests\CreateCourseValidationRequest;
 use Illuminate\Http\Request;
+use App\Http\Resources\CoursesResource;
+use App\Helpers\ApiResponse;
 
 class courseController extends Controller
 {
  public function index(){
         $data=courses::paginate(6);
 
-        return response()->json([
-        'status' => true,
-        'courses' => $data
-        ],200);
+        // return response()->json([
+        // 'status' => true,
+        // 'courses' => $data
+        // ],200);
+
+        // return response()->json([
+        // 'status' => true,
+        // 'courses' => CoursesResource::collection($data) 
+        // ],200);
+
+        // اذا بنشتغل بapi schema
+        return ApiResponse::sendApi(200,true,'تم جلب البيانات بنجاح',CoursesResource::collection($data));
     }
 
 
@@ -24,10 +34,11 @@ class courseController extends Controller
     
     $counter=courses::where('name',$request->name)->count();
     if($counter > 0){
-        return response()->json([
-            'status'=> false,
-            'message' => 'اسم الكورس موجود مسبقا'
-        ],422);
+        // return response()->json([
+        //     'status'=> false,
+        //     'message' => 'اسم الكورس موجود مسبقا'
+        // ],422);
+        return ApiResponse::sendApi(422,false,'اسم الكورس موجود مسبقا','','اسم الكورس موجود مسبقا');
     }
 
     $courses = new courses();
@@ -36,11 +47,17 @@ class courseController extends Controller
     $courses->save();
     
 
-    return response()->json([
-            'status'=> true,
-            'message' => 'تم اضافه الكورس بنجاح ',
-            'data' => $courses
-        ],201);
+    // return response()->json([
+    //         'status'=> true,
+    //         'message' => 'تم اضافه الكورس بنجاح ',
+    //         'data' => $courses
+    //     ],201);
+
+     // اذا بنشتغل بapi schema
+        return ApiResponse::sendApi(201,true,'تم إضافة الكورس بنجاح',$courses);
+    
+
+
     }
 
     public function show($id){
@@ -52,10 +69,7 @@ class courseController extends Controller
         ],404);    
     }
     else{
-    return response()->json([
-            'status'=> true,
-            'data' => $data
-        ],200);
+    return new CoursesResource($data);
     }
 }
 
