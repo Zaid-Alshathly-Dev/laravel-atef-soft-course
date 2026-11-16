@@ -1,59 +1,82 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel 12 Complete Masterclass & RESTful API Journey 🚀
+### رحلة الاحتراف الشاملة في لارافيل 12 وبناء واجهات برمجة التطبيقات
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A comprehensive repository documenting my complete backend development journey in **Laravel 12**, starting from the core fundamentals (MVC, Routing, Database Migrations, Eloquent ORM) all the way to building production-ready, secure **RESTful APIs** protected with **Laravel Sanctum**.  
+هذا المستودع يوثق رحلتي الكاملة في تطوير الـ Backend باستخدام **Laravel 12**، بدءاً من الأساسيات البرمجية (MVC، المسارات، الميجريشن، وقواعد البيانات) وصولاً إلى بناء واجهات برمجة تطبيقات احترافية وآمنة باستخدام **Laravel Sanctum**.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🛠️ Tech Stack & Tools | التقنيات والأدوات المستخدمة
+* **Framework / الإطار:** Laravel 12 (PHP)
+* **Authentication / المصادقة:** Laravel Sanctum (Token-based API Authentication)
+* **API Testing / الاختبار:** Postman (with Environment Variables & Standardized Headers)
+* **Database & ORM / قواعد البيانات:** MySQL / Eloquent ORM & Migrations
+* **Environment / البيئة:** XAMPP, Composer, Visual Studio Code
+* **Version Control / إدارة الإصدارات:** Git & GitHub
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 📚 Course Curriculum & Progress Milestones | محطات وإنجازات الكورس
 
-## Learning Laravel
+### Part 1: Core Fundamentals, MVC & Routing (Videos 1–18)
+### القسم الأول: الأساسيات، معمارية MVC، والمسارات
+* Setting up development environment (XAMPP, Composer, VS Code, Laravel 12 installation).  
+  *(إعداد بيئة العمل وتثبيت لارافيل).*
+* Understanding the **MVC Architecture** (Model-View-Controller) and Request Lifecycle.  
+  *(فهم معمارية MVC ودورة حياة الطلب).*
+* Mastering **Routing**: parameters, regular expression constraints, prefixes, and fallback routes.  
+  *(احتراف المسارات والقيود والبارامترات).*
+* Working with Controllers, Blade Templating Engine, and reusable layouts.  
+  *(التعامل مع المتحكمات ومحرك قوالب Blade).*
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### Part 2: Database, Migrations & Eloquent ORM (Videos 29–50)
+### القسم الثاني: قواعد البيانات، الميجريشن، والـ ORM
+* Managing database schema using **Migrations** (creating, adding, updating, and dropping columns/rollbacks).  
+  *(إدارة الجداول عبر الميجريشن).*
+* Working with **Eloquent Models**, Factories, Seeding, and CRUD operations.  
+  *(التعامل مع النماذج، البيانات الوهمية، وعمليات الـ CRUD).*
+* Advanced queries: Pagination, Where clauses, Query Builder, Soft Deletes, and Query Scopes.  
+  *(الاستعلامات المتقدمة، التصفح، والحذف الجزئي).*
+* Database Relationships: One-to-One, One-to-Many, and Many-to-Many.  
+  *(علاقات قاعدة البيانات).*
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Part 3: Advanced Features, Services & Architecture (Videos 51–136)
+### القسم الثالث: الميزات المتقدمة وهندسة التطبيق
+* Real-world Mini-project: Course Booking System implementation.  
+  *(مشروع نظام حجز الكورسات العملي).*
+* Advanced Laravel features: AJAX Search, Middlewares, Localization (multi-language), Custom Helpers, and Traits.  
+  *(البحث بالأجاكس، الوسطاء، الترجمة، والـ Traits).*
+* Service Container, Service Providers, Facades, Rate Limiting, and Request lifecycle deep-dive.  
+  *(حاوية الخدمات، مزودو الخدمات، والواجهات الساكنة).*
+* Managing Sessions, Caching, Task Scheduling, Events & Listeners, and Queue Workers.  
+  *(الجلسات، الكاش، جدولة المهام، والأحداث).*
+* Artisan Console, Custom Commands, Sending Emails via SMTP with attachments, and Blade Components.  
+  *(أوامر أرتيسان المخصصة، إرسال الإيميلات، ومكونات بليد).*
 
-## Laravel Sponsors
+### Part 4: RESTful APIs, Postman & Sanctum Authentication (Videos 137–155)
+### القسم الرابع: واجهات الـ API، بوستمان، وحماية Sanctum
+* Introduction to APIs, configuring `routes/api.php`, and testing via **Postman** using `Accept: application/json`.  
+  *(مقدمة الـ API واختبارها عبر بوستمان).*
+* Transitioning manual CRUD to standardized **RESTful Resource APIs** using `apiResource`.  
+  *(تحويل الـ CRUD إلى RESTful Resource API).*
+* Implementing **API Versioning** (`v1`), API Resources & Collections, HTTP Status Codes, and Standardized Response Schemas.  
+  *(إدارة النسخ، تنسيق المخرجات، وتوحيد شكل الاستجابات).*
+* Configuring **Postman Environment Variables** for dynamic workflow management.  
+  *(إدارة متغيرات بيئة بوستمان).*
+* Advanced API Security via **Laravel Sanctum**: User Registration, Token Generation, Login, Logout, and Middleware Route Protection.  
+  *(الحماية المتقدمة عبر Sanctum وتسجيل الدخول والخروج وحماية المسارات).*
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## 📬 Postman Testing Best Practices | أفضل ممارسات اختبار بوستمان
+When testing API endpoints, always include the following standard headers to guarantee JSON responses:  
+عند اختبار الـ Endpoints، احرص دائماً على تضمين الهيدرات التالية لضمان استجابات JSON صحيحة:
+* **`Accept`**: `application/json`
+* **`X-Requested-With`**: `XMLHttpRequest`
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+---
 
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 👨‍💻 Author | المطور
+* **Zaid Al-Shathly** (زيد الشاذلي)
+* Information Technology Student | Full-Stack Developer (Flutter & Laravel)  
+  *(طالب تقنية معلومات | مطور فُل ستاك)*
