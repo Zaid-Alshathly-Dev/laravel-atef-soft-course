@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\courseController;
 use App\Http\Controllers\Api\studentController;
+use App\Http\Controllers\Api\AuthApiController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -30,4 +31,14 @@ route::get('/course_destroy/{id}', [courseController::class,'destroy']);
 // ثانيا بشكل تلقائي 
 route::apiResource('student',studentController::class);
 
+// auth route
+route::post('/register',[AuthApiController::class,'register']);
+route::post('/login',[AuthApiController::class,'login']);
+route::post('/logout',[AuthApiController::class,'logout'])->middleware('auth:sanctum');
+
+
+route::middleware('auth:sanctum')->group(function(){
+route::get('/course_from_api_manual_authApi', [courseController::class,'index']);
+
+});
 });
